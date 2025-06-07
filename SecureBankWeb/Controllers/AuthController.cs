@@ -52,8 +52,7 @@ namespace SecureBankWeb.Controllers // <--- Ensure this namespace matches your p
             // 4. Send POST Request to API:
             //    Asynchronously sends the POST request to the API's login endpoint.
             //    The complete URL will be ApiSettings:BaseUrl + "auth/login" (e.g., https://localhost:7xxx/auth/login)
-            var response = await client.PostAsync("auth/login", content);
-
+            var response = await client.PostAsync("api/Auth/login", content);
             // 5. Handle API Response:
             if (!response.IsSuccessStatusCode) // Check if the API returned a success status code (2xx)
             {
@@ -111,7 +110,7 @@ namespace SecureBankWeb.Controllers // <--- Ensure this namespace matches your p
             var apiUser = new
             {
                 Username = model.Username,
-                Password = model.Password, // IMPORTANT: Ensure your API's SignUpRequest DTO has a 'Password' property, not 'PasswordHash'
+                PasswordHash = model.Password, // IMPORTANT: Ensure your API's SignUpRequest DTO has a 'Password' property, not 'PasswordHash'
                 Email = model.Email,
                 MobileNumber = model.MobileNumber,
                 AadharNumber = model.AadharNumber,
@@ -125,7 +124,7 @@ namespace SecureBankWeb.Controllers // <--- Ensure this namespace matches your p
 
             // 5. Send POST Request to API:
             //    Sends the POST request to the API's signup endpoint.
-            var response = await client.PostAsync("auth/signup", content);
+            var response = await client.PostAsync("api/Auth/signup", content);
 
             // 6. Handle API Response:
             if (!response.IsSuccessStatusCode)
