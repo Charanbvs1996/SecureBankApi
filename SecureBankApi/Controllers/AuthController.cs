@@ -54,5 +54,34 @@ namespace SecureBankApi.Controllers
                 Token = null          
             });
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await _context.Users
+                                                    .FirstOrDefaultAsync(u => 
+                                                                                      u.Username == loginRequest.Identifier || 
+                                                                                      u.Email == loginRequest.Identifier ||
+                                                                                      u.AadharNumber == loginRequest.Identifier);
+            if (user == null)
+            {
+                return Unauthorized("Invalid username, email, or Aadhar number.");
+            }
+            if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
+            {
+                return Unauthorized("Invalid password.");
+            }
+            return Ok(new AuthResponse
+            {
+                UserId = user.UserId,
+                Username = user.Username,
+                Message = "Login successful!",
+                Token = null 
+            });
+        }
     }
 }
