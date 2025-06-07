@@ -28,6 +28,10 @@ builder.Services.AddCors(options =>
 // Configure JWT authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["Secret"];
+if(secretKey == null)
+{
+    throw new InvalidOperationException("JWT Secret key is not configured in appsettings.json");
+}
 var issuer = jwtSettings["Issuer"];
 var audience = jwtSettings["Audience"];
 
