@@ -10,16 +10,14 @@ namespace SecureBankApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly ApplicationDbContext _context; // Field to hold the database context
-
-        // Constructor: ASP.NET Core's dependency injection will provide an instance of ApplicationDbContext
+        private readonly ApplicationDbContext _context; 
         public AuthController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // POST: /api/Auth/signup (This is the specific endpoint for user registration)
-        [HttpPost("signup")] // Defines this method as an HTTP POST endpoint at the specified route
+
+        [HttpPost("signup")] 
         public async Task<IActionResult> SignUp([FromBody] User newUser)
         {
             if (!ModelState.IsValid)
@@ -42,7 +40,7 @@ namespace SecureBankApi.Controllers
             newUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newUser.PasswordHash);
 
             
-            // newUser.CreatedAt = DateTime.UtcNow;
+            newUser.CreatedAt = DateTime.UtcNow;
 
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync(); 

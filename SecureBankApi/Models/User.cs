@@ -4,14 +4,14 @@ namespace SecureBankApi.Models
 {
     public class User
     {
-        [Key] // Denotes this property as the primary key for the database table
+        [Key]
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Username is required.")]
         [StringLength(50, ErrorMessage = "Username cannot exceed 50 characters.")]
         public string Username { get; set; } = string.Empty;
 
-        // This field will hold the raw password from Angular initially, and then the hashed password after processing.
+       
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(256, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 256 characters.")]
         public string PasswordHash { get; set; } = string.Empty; // Will store the hashed password
