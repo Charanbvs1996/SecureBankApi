@@ -1,0 +1,19 @@
+dotnet new webapi -n SecureBank.Api
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools # This package usually pulls in Microsoft.EntityFrameworkCore.Design as a dependency
+dotnet add package BCrypt.Net-Next
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+dotnet ef migrations add InitialCreateUserTable
+dotnet ef database update
+git init
+git add .
+git commit -m "Initial commit of SecureBank.Api project"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git push -u origin main
+git push origin main
+git status
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git rm SubfolderNameThatWasSubmodule
+rm -Recurse -Force .git # For PowerShell
+rm -rf .git # For Git Bash/Linux
